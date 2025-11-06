@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git 'https://github.com/YisusZzz/EjemploJenkins.git'  
+                git branch: 'main', url: 'https://github.com/YisusZzz/EjemploJenkins.git'
             }
         }
         stage('Build') {
@@ -13,6 +13,8 @@ pipeline {
         }
         stage('Test') {
             steps {
+                // Asegurarse de que el directorio exista antes de escribir en él
+                bat 'mkdir test-reports || echo "Directorio ya existe"'
                 bat 'python -m pytest --junitxml=test-reports/results.xml'
             }
         }
